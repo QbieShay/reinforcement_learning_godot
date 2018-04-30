@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://TrackProgress.gd" type="Script" id=1]
+[ext_resource path="res://Character.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 26.4423, 173.53, 80.7921, -2.78593, -34.0741, 0.450687, -113.783, 173.53, 22.8884, 9.80931, -40.4634, -9.40059, -205.719, 179.102, 0, 0, -39.2372, -32.289, -345.016, 63.95, 24.1145, 27.793, -7.7657, -13.8965, -343.158, -46.5587, 25.3407, 2.45233, -33.5151, -2.45233, -402.591, -61.4171, 6.53954, 22.8884, -5.31337, -25.3407, -461.096, -158.925, -12.6704, 20.8448, 11.4442, -26.1582, -428.594, -252.718, -38.4198, -45.7768, 28.6105, 27.3843, -298.583, -263.862, -18.8012, -43.3244, 13.4878, 30.6541, -220.577, -120.85, 0, 0, 14.3052, 11.4442, -51.5639, 48.163, 0, 0, 0, 0, 16.2272, 65.8073, 0, 0, 0, 0, 331.966, 62.0927 )
+}
+
+[node name="Node2D" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Character" parent="." index="0" instance=ExtResource( 2 )]
+
+position = Vector2( -37.8483, 390.513 )
+
+[node name="DistancePoints" type="Node2D" parent="." index="1"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="2"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 1266.75, 1196.43, 1035.14, 1191.4, 843.806, 1198.95, 712.895, 1224.12, 607.158, 1181.33, 357.923, 947.196, 322.677, 881.74, 385.616, 743.275, 373.028, 647.609, 289.949, 582.153, 131.345, 569.566, 80.994, 531.803, 20.5733, 363.128, 25.6083, 285.084, 136.38, 131.515, 221.976, 93.752, 294.984, 101.305, 395.686, 151.655, 576.948, 524.25, 1017.52, 954.748, 1093.04, 1010.13, 1188.71, 1035.31, 1415.29, 1042.86, 2097.54, 1020.2, 1946.49, 1191.4 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." index="3"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 1264.71, 1389.38, 1035.23, 1384.84, 887.55, 1391.66, 751.226, 1409.83, 637.622, 1412.11, 539.923, 1362.12, 158.001, 1026.37, 127.243, 971.003, 151.85, 891.031, 223.619, 757.746, 225.669, 718.785, 203.113, 706.482, 119.041, 708.533, 59.5751, 708.533, -1.94131, 675.724, -110.62, 409.153, -127.025, 316.878, -106.519, 251.261, 26.7663, 52.3579, 110.839, -13.2596, 219.518, -39.9167, 363.056, -37.8661, 484.038, -0.956299, 559.908, 87.2172, 697.295, 394.799, 732.154, 460.417, 764.963, 503.478, 1107.4, 856.172, 1150.47, 876.677, 1289.9, 911.537, 1570.83, 895.132, 2087.57, 878.728, 1366.29, 291.17, 1149.62, 70.6755, 844.897, -191.852, 348.938, -202.763, -135.631, -213.423, -569.578, -222.97, -568.197, 53.6713, -565.622, 569.89, -563.406, 1013.86, -568.453, 1517.24, 361.899, 1535.79, 1505.67, 1535.28 )
+
+[node name="MidLine" type="Path2D" parent="." index="4"]
+
+position = Vector2( 1204.24, 808.532 )
+scale = Vector2( 2.64895, 2.64895 )
+curve = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+

@@ -30,4 +30,4 @@ func _input(event):
 func on_timer_tick():
 	timer = get_tree().create_timer( 1 )
 	timer.connect("timeout",self, "on_timer_tick" )
-	$Camera2D/Label.text = "progress:"+ str(get_parent().calculate_progress(transform.origin))
+	$Camera2D/Label.text = "progress:"+ str(get_parent().calculate_progress(transform.origin)) + " intersecting" + str(get_parent().last_intersecting)

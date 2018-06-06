@@ -1,8 +1,9 @@
 extends KinematicBody2D
 
-var move_dir
+var move_dir = Vector2()
 var SPEED = 70
 var timer
+var prediction
 
 func _ready():
 	timer = get_tree().create_timer( 1 )
@@ -25,6 +26,8 @@ func _input(event):
 	x = Input.get_joy_axis( 0,0)
 	y = Input.get_joy_axis( 0,1)
 	move_dir = Vector2( x, y)
+	if event.is_action_pressed("ui_accept"):
+		print($TFBrain.get_prediction([1,1,1,1,1,1,1,1,1,1], $Camera2D/NNOUT))
 	
 
 func on_timer_tick():

@@ -27,7 +27,8 @@ func _input(event):
 	y = Input.get_joy_axis( 0,1)
 	move_dir = Vector2( x, y)
 	if event.is_action_pressed("ui_accept"):
-		print($TFBrain.get_prediction([1,1,1,1,1,1,1,1,1,1], $Camera2D/NNOUT))
+		print($TFBrain.get_prediction([1,1,1,1,1,1,1,1,1,1]))
+		 #print(prediction)
 	
 
 func on_timer_tick():

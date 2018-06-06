@@ -20,15 +20,10 @@ class CarBrainNoHidden(Node):
 		self.session.run(tf.global_variables_initializer())
 		print("Tf initialized")
 	
-	def get_prediction(self, g_params, who):
+	def get_prediction(self, g_params):
 		print("predicting")
 		ret = self.session.run(self.g_output, feed_dict = {self.input_params : [g_params]})
-		print(ret)
-		####not working#####
-		self.a = "what is happening" #+ ret[0]
-		#who.prediction = a
-		#####working#####
-		#who.prediction = wtf
+		return str(ret)
 	
 	def train(self, real_values):
 		self.session.run(self.train, feed_dict = {self.actual_v: [real_values]})

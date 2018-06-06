@@ -17,7 +17,8 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Character" parent="." index="0" instance=ExtResource( 2 )]
 
-position = Vector2( -37.8483, 390.513 )
+position = Vector2( 490.029, 1248.79 )
+_sections_unfolded = [ "Collision", "Transform", "collision" ]
 
 [node name="DistancePoints" type="Node2D" parent="." index="1"]
 

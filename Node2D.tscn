@@ -5,7 +5,7 @@
 
 [sub_resource type="Curve2D" id=1]
 
-bake_interval = 10.0
+bake_interval = 4.0
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 26.4423, 173.53, 80.7921, -2.78593, -34.0741, 0.450687, -113.783, 173.53, 22.8884, 9.80931, -40.4634, -9.40059, -205.719, 179.102, 0, 0, -39.2372, -32.289, -345.016, 63.95, 24.1145, 27.793, -7.7657, -13.8965, -343.158, -46.5587, 25.3407, 2.45233, -33.5151, -2.45233, -402.591, -61.4171, 6.53954, 22.8884, -5.31337, -25.3407, -461.096, -158.925, -12.6704, 20.8448, 11.4442, -26.1582, -428.594, -252.718, -38.4198, -45.7768, 28.6105, 27.3843, -298.583, -263.862, -18.8012, -43.3244, 13.4878, 30.6541, -220.577, -120.85, 0, 0, 14.3052, 11.4442, -51.5639, 48.163, 0, 0, 0, 0, 16.2272, 65.8073, 0, 0, 0, 0, 331.966, 62.0927 )
 }
@@ -17,15 +17,24 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Character" parent="." index="0" instance=ExtResource( 2 )]
 
-position = Vector2( 490.029, 1248.79 )
+position = Vector2( 1115.86, 1299.85 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Character" index="6"]
+
+remote_path = NodePath("../../Camera2D")
+use_global_coordinates = true
+update_position = true
+update_rotation = false
+update_scale = true
+_sections_unfolded = [ "Transform", "Update" ]
 
 [node name="DistancePoints" type="Node2D" parent="." index="1"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="2"]
 
 input_pickable = false
-collision_layer = 1
+collision_layer = 3
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
@@ -40,7 +49,7 @@ polygon = PoolVector2Array( 1266.75, 1196.43, 1035.14, 1191.4, 843.806, 1198.95,
 [node name="StaticBody2D2" type="StaticBody2D" parent="." index="3"]
 
 input_pickable = false
-collision_layer = 1
+collision_layer = 3
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
@@ -58,5 +67,32 @@ position = Vector2( 1204.24, 808.532 )
 scale = Vector2( 2.64895, 2.64895 )
 curve = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="Camera2D" type="Camera2D" parent="." index="5"]
+
+position = Vector2( 1115.86, 1299.85 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing", "Transform" ]
 
 

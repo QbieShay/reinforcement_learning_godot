@@ -8,7 +8,7 @@ var query
 func _ready():
 	var tmp_point
 	shape_cast = CircleShape2D.new()
-	shape_cast.radius = 300
+	shape_cast.radius = 200
 	var c = 0
 	for p in $MidLine.curve.get_baked_points():
 		tmp_point = point_type.instance()
@@ -30,24 +30,19 @@ func _ready():
 	
 
 func calculate_normal_proj(p1,p2,from):
-	var a = p1.y - p2.y
-	var b = p1.x - p2.x
-	var c = p2.x*p1.y - p2.y*p1.x
-	#calculate both lines equations
-	var m2 = b/a
-	var q2 =  from.y - m2* from.x # y = mx+q -> q = y-mx
-	var m1 = -a/b
-	var q1 = -c/b
-	#calculate where the two lines intersect
-	var p = Vector2( (q2-q1)/(m1-m2) , (m1*q2 - m2*q1)/(m1-m2) )
-	#calculate if the point of intersection is inside of the segment
-	var v = p2 - p1
-	if (v.dot(p-p1)< 0 and (p-p1).length() > 10) or (v.dot(p-p1) > 0 and (p2-p1).length() - (p - p1).length() > -10):
-	#if(v.dot(p-p1) > 0 && (p2-p1).length() - (p - p1).length()  ):
-		return p 
-	else: 
-		return null
-
+	var tri_radius = (from - p1).length()
+	var height = tri_radius*sin( (from -p1).angle_to( p2-p1))
+	var right_vec = (p2-p1).rotated(PI/2).normalized()
+	var int_point = from + right_vec*height
+	if( (int_point -p1).length() < (p2-p1).length() and (p2-p1).dot(int_point-p1)>0):
+		return int_point
+	else:
+		if ((p2-p1).dot(int_point-p1) <= 0 and (int_point - p1).length()<4) or\
+			((p2-p1).dot(int_point-p1) >= 1 and (int_point -p1).length() - (p2-p1).length() < 4):
+			return int_point
+		else:
+			return null
+	
 var last_intersecting = 0
 
 func sort_points(a,b):
@@ -60,11 +55,17 @@ func sort_points(a,b):
 func calculate_progress(from, sight_range = 124):
 	#shape_cast.radius = sight_range
 	if(!query):
-		return 0.0
+		return {
+			"covered_distance": 0,
+			"local_normal": Vector2()
+			}
 	query.transform.origin = from
 	var overlapping_points = get_world_2d().direct_space_state.intersect_shape( query )
 	if overlapping_points.size() < 2:
-		return 0.0
+		return {
+			"covered_distance": 0,
+			"local_normal": Vector2()
+			}
 	var distance = INF
 	var cur_covered = 0
 	var track_nor = Vector2()
@@ -74,7 +75,9 @@ func calculate_progress(from, sight_range = 124):
 	for i in range( overlapping_points.size() -1 ):
 		var p = overlapping_points[i]
 		var p_proj = calculate_normal_proj(overlapping_points[i].collider.global_transform.origin, overlapping_points[i+1].collider.global_transform.origin, from)
-		
+		#if p.collider.distance_covered>cur_covered:
+			#cur_covered = p.collider.distance_covered
+#			track_nor = (overlapping_points[i+1].collider.global_transform.origin-overlapping_points[i].collider.global_transform.origin).normalized()
 		if p_proj != null:
 			if from.distance_to(p_proj) < distance:
 				distance = from.distance_to(p_proj)
@@ -82,11 +85,9 @@ func calculate_progress(from, sight_range = 124):
 				var next_p = overlapping_points[i+1].collider.global_transform.origin
 				cur_covered = ((p_proj - actual_cur_p).length()/(next_p - actual_cur_p).length())\
 					*(overlapping_points[i+1].collider.distance_covered - overlapping_points[i].collider.distance_covered)
-				
+
 				cur_covered+= overlapping_points[i].collider.distance_covered
 				track_nor = (overlapping_points[i+1].collider.global_transform.origin-overlapping_points[i].collider.global_transform.origin).normalized()
-		else:
-			print("lost point")
 	return {
 		"covered_distance": cur_covered,
 		"local_normal": track_nor

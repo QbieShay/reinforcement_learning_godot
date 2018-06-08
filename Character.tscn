@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Character.gd" type="Script" id=1]
-[ext_resource path="res://CarBrainNoHidden.py" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://CarBrainNoHidden.py" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 20.0
 
-[node name="Character" type="KinematicBody2D" index="0"]
+[node name="Character" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -17,19 +18,58 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "collision" ]
 
-[node name="TFBrain" type="Node" parent="." index="0"]
+[node name="Dots" type="Node2D" parent="." index="0"]
 
-script = ExtResource( 2 )
+visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+[node name="Sprite" type="Sprite" parent="Dots" index="0"]
+
+modulate = Color( 1, 0, 0, 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[node name="Sprite3" type="Sprite" parent="Dots" index="1"]
+
+modulate = Color( 0.283895, 0.980469, 0.0612793, 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[node name="Sprite4" type="Sprite" parent="Dots" index="2"]
+
+modulate = Color( 0, 0.976563, 1, 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[node name="Sprite5" type="Sprite" parent="Dots" index="3"]
+
+modulate = Color( 0.804688, 0, 1, 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[node name="Sprite2" type="Sprite" parent="Dots" index="4"]
+
+modulate = Color( 1, 0.735596, 0.109375, 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[node name="TFBrain" type="Node" parent="." index="1"]
+
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="." index="2"]
+[node name="Camera2D" type="Camera2D" parent="." index="3"]
 
 anchor_mode = 1
 rotating = false
-current = true
+current = false
 zoom = Vector2( 1, 1 )
 limit_left = -10000000
 limit_top = -10000000
@@ -49,7 +89,7 @@ drag_margin_bottom = 0.0
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-_sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing" ]
+_sections_unfolded = [ "Drag Margin", "Limit", "Offset", "Smoothing", "Transform" ]
 
 [node name="NNOUT" type="Label" parent="Camera2D" index="0"]
 
@@ -90,5 +130,107 @@ size_flags_vertical = 4
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Sprite" type="Sprite" parent="." index="4"]
+
+position = Vector2( -0.510433, 0.510433 )
+scale = Vector2( 0.47428, 0.47428 )
+texture = ExtResource( 2 )
+
+[node name="MoveRays" type="Node2D" parent="." index="5"]
+
+[node name="RayCast2D" type="RayCast2D" parent="MoveRays" index="0"]
+
+rotation = -3.14159
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 70 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D2" type="RayCast2D" parent="MoveRays" index="1"]
+
+rotation = -0.563777
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 70 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D3" type="RayCast2D" parent="MoveRays" index="2"]
+
+rotation = -1.86857
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 70 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D4" type="RayCast2D" parent="MoveRays" index="3"]
+
+rotation = -5.69622
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 70 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D5" type="RayCast2D" parent="MoveRays" index="4"]
+
+rotation = -4.40392
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 70 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
+
+[node name="PerceptionRays" type="Node2D" parent="." index="6"]
+
+[node name="RayCast2D10" type="RayCast2D" parent="PerceptionRays" index="0"]
+
+rotation = 3.14159
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 300 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D6" type="RayCast2D" parent="PerceptionRays" index="1"]
+
+rotation = -0.563777
+scale = Vector2( 1, 1 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 300 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D7" type="RayCast2D" parent="PerceptionRays" index="2"]
+
+rotation = -1.86857
+scale = Vector2( 1, 1 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 300 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D9" type="RayCast2D" parent="PerceptionRays" index="3"]
+
+rotation = 0.586966
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 300 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D8" type="RayCast2D" parent="PerceptionRays" index="4"]
+
+rotation = 1.87927
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 300 )
+collision_mask = 2
+_sections_unfolded = [ "Transform" ]
 
 

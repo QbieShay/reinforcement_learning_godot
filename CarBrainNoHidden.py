@@ -10,8 +10,9 @@ class CarBrainNoHidden(Node):
 
 	def _ready(self):
 		self.input_params = tf.placeholder(tf.float32, [1, 10])
-		self.hidden = tf.layers.dense(inputs=self.input_params, units=10)#,activation = tf.nn.sigmoid)
-		self.output = tf.layers.dense(inputs=self.hidden, units=5)#, activation = tf.nn.sigmoid)
+		self.hidden = tf.layers.dense(inputs=self.input_params, units=10,activation = tf.nn.sigmoid)
+		#self.hidden2 = tf.layers.dense(inputs=self.hidden, units=10)
+		self.output = tf.layers.dense(inputs=self.hidden, units=5 )#, activation = tf.nn.sigmoid)
 		self.actual_v = tf.placeholder ( tf.float32, [1,5])
 		self.loss = tf.losses.mean_squared_error(self.actual_v,self.output)
 		self.optimizer = tf.train.GradientDescentOptimizer(0.01)
@@ -27,5 +28,13 @@ class CarBrainNoHidden(Node):
 	
 	def train_char(self, g_params, real_values):
 		self.session.run(self.train, feed_dict = {self.actual_v: [real_values], self.input_params : [g_params]})
-		return str(self.session.run(self.g_output, feed_dict = {self.input_params : [g_params]})) 
+		ret = self.session.run(self.g_output, feed_dict = {self.input_params : [g_params]})
+#		p_arr = PoolRealArray()
+#		p_arr.resize(5)
+#		for i in range(5):
+#			p_arr[i] = ret[i]
+#		with p_arr.raw_access() as ptr:
+#			for i in range(5):
+#				ptr[i] = ret[i] # this is fast
+		return str(ret)
 

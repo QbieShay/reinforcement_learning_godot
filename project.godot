@@ -18,10 +18,6 @@ config/icon="res://icon.png"
 
 singletons=[ "res://pythonscript.gdnlib" ]
 
-[physics]
-
-common/physics_fps=30
-
 [rendering]
 
 environment/default_environment="res://default_env.tres"
